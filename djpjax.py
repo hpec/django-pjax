@@ -11,6 +11,8 @@ def pjax(pjax_template=None):
             # if not hasattr(resp, "is_rendered"):
             #     warnings.warn("@pjax used with non-template-response view")
             #     return resp
+            if not resp.context_data:
+                resp.context_data = {}
             if request.META.get('HTTP_X_PJAX', False):
                 if pjax_template:
                     resp.template_name = pjax_template
@@ -29,6 +31,8 @@ def pjaxtend(parent='base.html', pjax_parent='pjax.html', context_var='parent'):
             # if not hasattr(resp, "is_rendered"):
             #     warnings.warn("@pjax used with non-template-response view")
             #     return resp
+            if not resp.context_data:
+                resp.context_data = {}
             if request.META.get('HTTP_X_PJAX', False):
                 resp.context_data[context_var] = pjax_parent
             elif parent:
